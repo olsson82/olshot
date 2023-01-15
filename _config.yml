@@ -5,4 +5,4 @@ plugins:
 title: OlShot Arduino Game
 description: A DIY game for wireless shooting targets.
 
-show_downloads: [false]
+show_downloads: false
