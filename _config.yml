@@ -1,0 +1,8 @@
+remote_theme: pages-themes/slate@v0.2.0
+plugins:
+- jekyll-remote-theme
+
+title: OlShot Arduino Game
+description: A DIY game for wireless shooting targets.
+
+show_downloads: [false]
