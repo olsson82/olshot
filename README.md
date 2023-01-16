@@ -5,6 +5,7 @@ It's wireless and uses nrf24l01 modules to communicate to the targets and the ma
 
 # Read more
 * [Targets](page/targets.md)
+* [Main Unit](page/mainunit.md)
 
 ## Still in development
 The system is still in development and this page will be updated during the progress.
