@@ -12,9 +12,9 @@ The system is still in development and this page will be updated during the prog
 
 ## Updates
 ### Target PCB
-The first layout of the PCB has been done. Already i know i need to do some adjustment. And add some stuff but right now it look like this:
+Did a redesign of the target sensor, everything is now on the top side. Added jst connections instead of soldering.
 <figure>
-    <img src="image/target/shootingsensor_front.png"
+    <img src="image/target/targetsensor-front.png"
          alt="Front side">
     <figcaption>Front side of the PCB.</figcaption>
 </figure>
