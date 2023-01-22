@@ -20,7 +20,13 @@ Did a redesign of the target sensor, everything is now on the top side. Added js
 </figure>
 
 ### Main Unit
-The schematic for the main unit is done, and the PCB design has started. There may be changes during the progress.
+The design for the main unit pcb is done (i think) Need to check everything one, two and three times :) So it's all correct.
+Like the target pcb it has built in charger for lipo batterys, also it has sd card support for save info. And also a RTC (Real Time Clock)
+<figure>
+    <img src="image/mainunit/main-unit.png"
+         alt="Front side">
+    <figcaption>Front side of the PCB.</figcaption>
+</figure>
 
 ## Discuss
 Feel free to take part in this project. Go to [Discussion](https://github.com/olsson82/olshot/discussions) to ask questions or discuss about the project.
