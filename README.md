@@ -23,13 +23,8 @@ Did a redesign of the target sensor, everything is now on the top side. Added js
 </figure>
 
 ### Main Unit
-The design for the main unit pcb is done (i think) Need to check everything one, two and three times :) So it's all correct.
-Like the target pcb it has built in charger for lipo batterys, also it has sd card support for save info. And also a RTC (Real Time Clock)
-<figure>
-    <img src="image/mainunit/main-unit.png"
-         alt="Front side">
-    <figcaption>Front side of the PCB.</figcaption>
-</figure>
+The main unit is still in development. The sd card part has some problems with the level shifter that needs to fix and also i will remove the lipo charger and make it possible to power from usb or 12v. This is due to the nextion require 5v and the lipo batterys can not give the power it needs.
+
 
 ## Discuss
 Feel free to take part in this project. Go to [Discussion](https://github.com/olsson82/olshot/discussions) to ask questions or discuss about the project.
