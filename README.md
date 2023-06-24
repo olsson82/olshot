@@ -12,6 +12,7 @@ It's wireless and uses nrf24l01 modules to communicate to the targets and the ma
 The system is still in development and this page will be updated during the progress.
 
 ## Updates
+**2023-06-24: Still working on the main unit, it's almost done, have had a lot of work and not so mutch free time.
 ### Target PCB
 **2023-02-05: The Target PCB Is now avalible for kicad and arduino code.**
 
