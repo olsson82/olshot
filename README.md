@@ -17,6 +17,7 @@ The system is still in development and this page will be updated during the prog
 ## Updates
 ### Main Unit
 **2023-08-01: Kicad files now uploaded**
+
 **2023-07-31: The main unit has been tested and everything seems to be working. The kicad files will soon be uploaded.**
 
 <figure>
@@ -35,10 +36,6 @@ Did a redesign of the target sensor, everything is now on the top side. Added js
          alt="Front side">
     <figcaption>Front side of the PCB.</figcaption>
 </figure>
-
-### Main Unit
-The main unit is still in development. The sd card part has some problems with the level shifter that needs to fix and also i will remove the lipo charger and make it possible to power from usb or 12v. This is due to the nextion require 5v and the lipo batterys can not give the power it needs.
-
 
 ## Discuss
 Feel free to take part in this project. Go to [Discussion](https://github.com/olsson82/olshot/discussions) to ask questions or discuss about the project.
