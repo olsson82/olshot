@@ -32,7 +32,7 @@ The system is still in development and this page will be updated during the prog
 
 Did a redesign of the target sensor, everything is now on the top side. Added jst connections instead of soldering.
 <figure>
-    <img src="image/target/targetsensor-front.png"
+    <img src="image/target/IMG_3316.jpeg"
          alt="Front side">
     <figcaption>Front side of the PCB.</figcaption>
 </figure>
