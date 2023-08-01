@@ -1,0 +1,32 @@
+Component Count:,39,,,,
+Ref,Qnty,Value,Cmp name,Footprint,Description
+"BT1, ",1,CR2032-BS-6-1,CR2032-BS-6-1,BAT_CR2032-BS-6-1,
+"BZ1, ",1,Buzzer,Buzzer,Buzzer_Beeper:Buzzer_15x7.5RM7.6,"Buzzer, polarized"
+"C1, C4, C6, C7, ",4,10 uF,C_Polarized,Capacitor_THT:CP_Radial_D5.0mm_P2.50mm,Polarized capacitor
+"C2, ",1,1 uF,C_Polarized,Capacitor_THT:CP_Radial_D5.0mm_P2.50mm,Polarized capacitor
+"C3, C5, ",2,22pF,C,Capacitor_SMD:C_0603_1608Metric,Unpolarized capacitor
+"C8, C10, ",2,100nF,C,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm,Unpolarized capacitor
+"C9, ",1,100nf,C,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm,Unpolarized capacitor
+"D3, ",1,PWR/BATT,LED,LED_THT:LED_D5.0mm,Light emitting diode
+"J1, ",1,12v IN,Conn_01x02,Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical,"Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J2, ",1,ISPProg,Conn_02x05_Odd_Even,Connector_IDC:IDC-Header_2x05_P2.54mm_Vertical,"Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J3, ",1,Extra Pins,Conn_01x08,Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical,"Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J4, ",1,PWSwitch,Conn_01x02,Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical,"Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J5, ",1,Nextion Display,Conn_01x04,Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical,"Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J6, ",1,MISO Enable,Conn_01x02,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,"Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J7, ",1,MOSI Enable,Conn_01x02,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,"Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J8, ",1,SCK Enable,Conn_01x02,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,"Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"J9, ",1,10118193-0001LF,10118193-0001LF,10118193-0001LF:FCI_10118193-0001LF,
+"MICRO_SD1, ",1,TF-01A,TF-01A,TF-01A,
+"R1, R2, R3, R4, ",4,3.3K,R,Resistor_SMD:R_0603_1608Metric,Resistor
+"R5, ",1,100,R,Resistor_SMD:R_0603_1608Metric,Resistor
+"R6, ",1,470,R,Resistor_SMD:R_0603_1608Metric,Resistor
+"R13, R14, ",2,10K,R,Resistor_SMD:R_0603_1608Metric,Resistor
+"U1, ",1,ATmega328P-A,ATmega328P-A,Package_QFP:TQFP-32_7x7mm_P0.8mm,"20MHz, 32kB Flash, 2kB SRAM, 1kB EEPROM, TQFP-32"
+"U2, ",1,LM7805_TO220,LM7805_TO220,Package_TO_SOT_THT:TO-220-3_Vertical,"Positive 1A 35V Linear Regulator, Fixed Output 5V, TO-220"
+"U3, ",1,MCP1700-3302E,MCP1700x-330xxTO,Package_TO_SOT_THT:TO-92_Inline,"250mA Low Quiscent Current LDO, 3.3V output, TO-92"
+"U4, ",1,"74LVC125APW,118","74LVC125APW,118",74LVC125APW_118:SOP65P640X110-14N,
+"U5, ",1,NRF24L01_Breakout,NRF24L01_Breakout,RF_Module:nRF24L01_Breakout,"Ultra low power 2.4GHz RF Transceiver, Carrier PCB"
+"U6, ",1,DS1307ZN+,DS1307ZN+,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,"64 x 8, Serial, I2C Real-time clock, 4.5V to 5.5V VCC, -40°C to +85°C, SOIC-8"
+"Y1, ",1,16MHz,Crystal,Crystal:Crystal_HC18-U_Vertical,Two pin crystal
+"Y2, ",1,Crystal,Crystal,Crystal:Crystal_AT310_D3.0mm_L10.0mm_Horizontal,Two pin crystal
