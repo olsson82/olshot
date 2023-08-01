@@ -16,6 +16,7 @@ The system is still in development and this page will be updated during the prog
 
 ## Updates
 ### Main Unit
+**2023-08-01: Kicad files now uploaded**
 **2023-07-31: The main unit has been tested and everything seems to be working. The kicad files will soon be uploaded.**
 
 <figure>
