@@ -3,6 +3,9 @@ This is an Arduino based Shooting game system. Free to use, you need to make the
 
 It's wireless and uses nrf24l01 modules to communicate to the targets and the main system.
 
+## How mutch does it cost to buid ?
+Well it will cost you some money, for the components, and maufactoring the pcb, **BUT** to have your custom build game is priceless.
+
 # Read more
 * [Wiki](https://github.com/olsson82/olshot/wiki)
 * [Targets](page/targets.md)
