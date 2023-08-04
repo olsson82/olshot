@@ -15,6 +15,8 @@ Well it will cost you some money, for the components, and maufactoring the pcb, 
 The system is still in development and this page will be updated during the progress.
 
 ## Updates
+**2023-08-04: Working on the code for main unit and design for the touchscreen.**
+
 ### Main Unit
 **2023-08-01: Kicad files now uploaded**
 
