@@ -42,7 +42,6 @@ int sensor;
 int shootMode = 0;
 int batlow = 0;
 long startTime, stopTime;
-long myDesiredTime = 15000;  //Set time for failsafe Default is 15 Sec
 
 #ifdef BATTERY
 //Change the limit in milivolt for battery before the targets will warn for low battery.
@@ -55,6 +54,7 @@ int ledState = HIGH;
 struct recived {
   int I = 1;  // The id number for the target
   int J = 0;  // If it active target or test signal.
+  long F = 15000; //Failsafe time
 };
 typedef struct recived Package;
 Package intotarget;
@@ -175,7 +175,7 @@ void targetHit() {
   digitalWrite(LEDTarget, HIGH);
   while (shootMode == 1) {
     stopTime = millis();  //Count stoptime for failsafe
-    if (stopTime - startTime >= myDesiredTime) {
+    if (stopTime - startTime >= intotarget.F) {
 #ifdef DEBUG
       Serial.println("Activate Failsafe");
 #endif
