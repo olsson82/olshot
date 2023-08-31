@@ -12,23 +12,24 @@
  * @author         :  Andreas Olsson
  * @email          :  andreas@olsserv82.com
  * @repo           :  https://github.com/olsson82/olshot
- * @createdOn      :  2023-08-30
+ * @updatedOn      :  2023-08-31
  * @description    :  Code for main unit
  *------------------------------------------------------------------------**/
 /**----------------------------------------------
  * *                   INFO
  *   Code is still in development, and is a BETA only!
- *   The clock function is still not built in!
  *
  *---------------------------------------------**/
 #include "EasyNextionLibrary.h"
 #include <SPI.h>
 #include "SdFat.h"
 #include "RF24.h"
-#define CNFFILE "cnf.dat" //Set filename here
+#include "RTClib.h"
+#define CNFFILE "cnf.dat"  //Set filename here
 SdFat SD;
 RF24 myRadio(9, 10);
 EasyNex myNex(Serial);
+RTC_DS1307 rtc;
 const uint64_t addresses[2] = { 0xF0F0F0F0E1LL, 0xABCDABCD71LL };
 struct Config {
   int targets = 5;
@@ -55,8 +56,8 @@ struct Config {
 };
 Config config;
 struct sending {
-  int I = 1;                      // The id number for the target
-  int J = 0;                      // If it active target or test signal.
+  int I = 1;                 // The id number for the target
+  int J = 0;                 // If it active target or test signal.
   long F = config.safetime;  //Sending the failsafe time
 };
 typedef struct sending Package;
@@ -71,7 +72,7 @@ typedef struct recived Package1;
 Package1 fromtarget;
 File myFile;
 const int buzzer = A0;
-int LEDPWR = 6;
+const int LEDPWR = 6;
 
 void setup() {
   pinMode(LEDPWR, OUTPUT);
@@ -94,6 +95,10 @@ void setup() {
     while (1)
       ;
   }
+   if (! rtc.begin()) {
+      while (1)
+      ;
+  } 
   myRadio.setPALevel(RF24_PA_MIN);    //Use min when testing, then change to MAX for better distance.
   myRadio.setDataRate(RF24_250KBPS);  //Better distance if sending low data.
   myRadio.setRetries(15, 15);
@@ -102,8 +107,8 @@ void setup() {
   myRadio.openWritingPipe(addresses[1]);
   myRadio.startListening();
   delay(100);
-  myNex.begin(9600); 
-  myNex.writeStr("page page1");
+  myNex.begin(9600);
+  myNex.writeStr(F("page page1"));
   delay(50);
   if (SD.exists(CNFFILE)) {
     conf(0);
@@ -120,11 +125,11 @@ void trigger7() {
   int sys;
   sys = myNex.readNumber("sys0");
   if (sys == 1) {
-    config.safetime = myNex.readNumber("n4.val");
-    config.maxrapid = myNex.readNumber("n0.val");
-    config.timed = myNex.readNumber("n2.val");
-    config.maxrounds = myNex.readNumber("n1.val");
-    config.targets = myNex.readNumber("n3.val");
+    config.safetime = myNex.readNumber(F("n4.val"));
+    config.maxrapid = myNex.readNumber(F("n0.val"));
+    config.timed = myNex.readNumber(F("n2.val"));
+    config.maxrounds = myNex.readNumber(F("n1.val"));
+    config.targets = myNex.readNumber(F("n3.val"));
   }
   if (sys == 2) {
     for (int ao = 0; ao < 5; ao++) {
@@ -133,14 +138,17 @@ void trigger7() {
     }
   }
   if (sys == 3) {
-    config.totalplayer = myNex.readNumber("n0.val");
-    myNex.readStr("ta0.txt").toCharArray(config.p1, 11);
-    myNex.readStr("ta1.txt").toCharArray(config.p2, 11);
-    myNex.readStr("ta2.txt").toCharArray(config.p3, 11);
-    myNex.readStr("ta3.txt").toCharArray(config.p4, 11);
-    myNex.readStr("ta4.txt").toCharArray(config.p5, 11);
+    config.totalplayer = myNex.readNumber(F("n0.val"));
+    myNex.readStr(F("ta0.txt")).toCharArray(config.p1, 11);
+    myNex.readStr(F("ta1.txt")).toCharArray(config.p2, 11);
+    myNex.readStr(F("ta2.txt")).toCharArray(config.p3, 11);
+    myNex.readStr(F("ta3.txt")).toCharArray(config.p4, 11);
+    myNex.readStr(F("ta4.txt")).toCharArray(config.p5, 11);
   }
-  myNex.writeStr("page page2");
+  if (sys == 4) {
+    rtc.adjust(DateTime(myNex.readNumber(F("n0.val")), myNex.readNumber(F("n1.val")), myNex.readNumber(F("n2.val")), myNex.readNumber(F("n3.val")), myNex.readNumber(F("n4.val")), myNex.readNumber(F("n5.val"))));
+  }
+  myNex.writeStr(F("page page2"));
   delay(50);
   conf(1);
 }
@@ -150,15 +158,15 @@ void trigger2() {
 }
 
 void trigger1() {
-  play(myNex.readNumber("sys1"));
+  play(myNex.readNumber(F("sys1")));
 }
 
 void trigger4() {
-  myNex.writeNum("n4.val", config.safetime);
-  myNex.writeNum("n0.val", config.maxrapid);
-  myNex.writeNum("n2.val", config.timed);
-  myNex.writeNum("n1.val", config.maxrounds);
-  myNex.writeNum("n3.val", config.targets);
+  myNex.writeNum(F("n4.val"), config.safetime);
+  myNex.writeNum(F("n0.val"), config.maxrapid);
+  myNex.writeNum(F("n2.val"), config.timed);
+  myNex.writeNum(F("n1.val"), config.maxrounds);
+  myNex.writeNum(F("n3.val"), config.targets);
 }
 
 void trigger5() {
@@ -169,24 +177,24 @@ void trigger5() {
 }
 
 void trigger6() {
-  myNex.writeNum("n0.val", config.totalplayer);
-  myNex.writeStr("ta0.txt", config.p1);
-  myNex.writeStr("ta1.txt", config.p2);
-  myNex.writeStr("ta2.txt", config.p3);
-  myNex.writeStr("ta3.txt", config.p4);
-  myNex.writeStr("ta4.txt", config.p5);
+  myNex.writeNum(F("n0.val"), config.totalplayer);
+  myNex.writeStr(F("ta0.txt"), config.p1);
+  myNex.writeStr(F("ta1.txt"), config.p2);
+  myNex.writeStr(F("ta2.txt"), config.p3);
+  myNex.writeStr(F("ta3.txt"), config.p4);
+  myNex.writeStr(F("ta4.txt"), config.p5);
 }
 
 void trigger3() {
-  myNex.writeStr("ta0.txt", String(config.hq[0]));
-  myNex.writeStr("ta1.txt", config.hp1);
-  myNex.writeStr("ta2.txt", config.hd1);
-  myNex.writeStr("ta3.txt", String(config.hq[1]));
-  myNex.writeStr("ta4.txt", config.hp3);
-  myNex.writeStr("ta5.txt", config.hd3);
-  myNex.writeStr("ta6.txt", String(config.hr));
-  myNex.writeStr("ta7.txt", config.hp2);
-  myNex.writeStr("ta8.txt", config.hd2);
+  myNex.writeStr(F("ta0.txt"), String(config.hq[0]));
+  myNex.writeStr(F("ta1.txt"), config.hp1);
+  myNex.writeStr(F("ta2.txt"), config.hd1);
+  myNex.writeStr(F("ta3.txt"), String(config.hq[1]));
+  myNex.writeStr(F("ta4.txt"), config.hp3);
+  myNex.writeStr(F("ta5.txt"), config.hd3);
+  myNex.writeStr(F("ta6.txt"), String(config.hr));
+  myNex.writeStr(F("ta7.txt"), config.hp2);
+  myNex.writeStr(F("ta8.txt"), config.hd2);
 }
 
 void conf(int set) {
@@ -221,15 +229,14 @@ void inform(int buzz, int light, int runs) {
     }
     delay(1000);
   }
-} 
+}
 
 void sendTest(int RunTest) {
   long startTime, stopTime;
+  int i;
+  int oTargets = config.targets - 1;
+  int WaitForResponse = 0;
   while (RunTest == 1) {
-    int i;
-    int oTargets = config.targets - 1;
-    int WaitForResponse = 0;
-
     for (i = 0; i <= oTargets; i++) {
       totarget.I = config.targID[i];
       totarget.J = 2;
@@ -258,7 +265,7 @@ void sendTest(int RunTest) {
       if (i >= oTargets) {
         RunTest = 0;
         delay(2000);
-        myNex.writeStr("page page1");
+        myNex.writeStr(F("page page1"));
       }
     }
   }
@@ -267,22 +274,22 @@ void sendTest(int RunTest) {
 void play(int g) {
   String pname;
   for (int ao = 0; ao <= config.totalplayer - 1; ao++) {
-    myNex.writeStr("page page8");
+    myNex.writeStr(F("page page8"));
     delay(50);
     if (ao == 0) {
-      myNex.writeStr("tnextp.txt", config.p1);
+      myNex.writeStr(F("tnextp.txt"), config.p1);
       pname = config.p1;
     } else if (ao == 1) {
-      myNex.writeStr("tnextp.txt", config.p2);
+      myNex.writeStr(F("tnextp.txt"), config.p2);
       pname = config.p2;
     } else if (ao == 2) {
-      myNex.writeStr("tnextp.txt", config.p3);
+      myNex.writeStr(F("tnextp.txt"), config.p3);
       pname = config.p3;
     } else if (ao == 3) {
-      myNex.writeStr("tnextp.txt", config.p4);
+      myNex.writeStr(F("tnextp.txt"), config.p4);
       pname = config.p4;
     } else if (ao == 4) {
-      myNex.writeStr("tnextp.txt", config.p5);
+      myNex.writeStr(F("tnextp.txt"), config.p5);
       pname = config.p5;
     }
     inform(1, 1, 10);
@@ -299,14 +306,14 @@ void play(int g) {
     int oRounds;
     float timedRun;
     if (g == 1) {
-      myNex.writeStr("page page3");
+      myNex.writeStr(F("page page3"));
       oRounds = config.maxrounds;
     } else if (g == 2) {
-      myNex.writeStr("page page9");
+      myNex.writeStr(F("page page9"));
       interval1 = 0;
       timedRun = (float)config.timed;
     } else {
-      myNex.writeStr("page page10");
+      myNex.writeStr(F("page page10"));
       oRounds = config.maxrapid;
     }
     delay(500);
@@ -317,7 +324,7 @@ void play(int g) {
     if (g == 1 || g == 3) {
       for (int i = 0; i < oRounds; i++) {
         if (g == 1) {
-          myNex.writeStr("tround.txt", String(i + 1));
+          myNex.writeStr(F("tround.txt"), String(i + 1));
           delay(random(3000) + 1000);
           time1 = millis();
         }
@@ -362,7 +369,7 @@ void play(int g) {
             time2 = millis();
             interval1 = (time2 - time1);
             interval1 = interval1 / 1000;
-            myNex.writeStr("trtime.txt", String(interval1));
+            myNex.writeStr(F("trtime.txt"), String(interval1));
             myNex.writeStr("page12.rrq" + String(i + 1) + ".txt", String(interval1));
             savehigh(1, interval1, pname, 0);
           } else {
@@ -378,18 +385,17 @@ void play(int g) {
             newPort = random(oTargets);
           currentPort = newPort;
         }
-
       }
       if (g == 3) {
         time2 = millis();
         interval1 = (time2 - time1);
         interval1 = interval1 / 1000;
-        myNex.writeStr("page14.rtrap1.txt", String(interval1));
+        myNex.writeStr(F("page14.rtrap1.txt"), String(interval1));
         savehigh(3, interval1, pname, 0);
-        myNex.writeStr("page page14");
+        myNex.writeStr(F("page page14"));
         delay(20000);
       } else {
-        myNex.writeStr("page page12");
+        myNex.writeStr(F("page page12"));
         delay(20000);
       }
 
@@ -430,8 +436,8 @@ void play(int g) {
           hitCounter++;
           time2 = millis();
           interval1 = (time2 - time1);
-          myNex.writeStr("thits.txt", String(hitCounter));
-          myNex.writeStr("page13.rtih1.txt", String(hitCounter));
+          myNex.writeStr(F("thits.txt"), String(hitCounter));
+          myNex.writeStr(F("page13.rtih1.txt"), String(hitCounter));
           savehigh(2, interval1, pname, hitCounter);
         }
         newPort = random(oTargets);
@@ -439,37 +445,44 @@ void play(int g) {
           newPort = random(oTargets);
         currentPort = newPort;
       }
-      myNex.writeStr("page page13");
+      myNex.writeStr(F("page page13"));
       delay(20000);
     }
   }
-  myNex.writeStr("page page1");
+  myNex.writeStr(F("page page1"));
 }
 
 void savehigh(int game, float time, String play, int hits) {
+  DateTime now = rtc.now();
   if (game == 1) {
     //Quicktime
     if (config.hq[0] == 0) {
       config.hq[0] = time;
       play.toCharArray(config.hp1, 11);
+      //ddate.toCharArray(config.hd1, 11);
+      sprintf(config.hd1, "%04d-%02d-%02d %02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute());
     } else if (time < config.hq[0]) {
       config.hq[0] = time;
       play.toCharArray(config.hp1, 11);
+      sprintf(config.hd1, "%04d-%02d-%02d %02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute());
     }
   } else if (game == 2) {
     //Timed
     if (hits > config.hr) {
       config.hr = hits;
       play.toCharArray(config.hp2, 11);
+      sprintf(config.hd2, "%04d-%02d-%02d %02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute());
     }
   } else {
     //Rapid
     if (config.hq[1] == 0) {
       config.hq[1] = time;
       play.toCharArray(config.hp3, 11);
+      sprintf(config.hd3, "%04d-%02d-%02d %02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute());
     } else if (time < config.hq[1]) {
       config.hq[1] = time;
       play.toCharArray(config.hp3, 11);
+      sprintf(config.hd3, "%04d-%02d-%02d %02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute());
     }
   }
   conf(1);
