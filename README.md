@@ -20,7 +20,10 @@ is accepted.
 The system is still in development and this page will be updated during the progress.
 
 ## Updates
+**2023-08-31: The clock function is now added to the code, and some adjustments done in the code**
+
 **2023-08-30: The first BETA version of main unit is released.**
+
 **2023-08-04: Working on the code for main unit and design for the touchscreen.**
 
 ### Main Unit
