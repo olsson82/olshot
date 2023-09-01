@@ -10,16 +10,10 @@ Each sensor has it unique code, one for recive data, and one for send data, so t
 When the main unit trigger the sensor a **blue** light will be activated, to inform the shooter that it is time to shoot.
 
 ## PCB
-There will be files for you so you can order PCB if you don't want to make your sensors self from the start. They are still in development and will be adjusted if there are some changes. For the moment they look like this:
+All files for making the target sensor is avalible and it will look like this:
 
 <figure>
-    <img src="../image/target/shootingsensor_front.png"
-         alt="Front side">
-    <figcaption>Front side of the PCB.</figcaption>
-</figure>
-
-<figure>
-    <img src="../image/target/shootingsensor_back.png"
-         alt="Back side">
-    <figcaption>Back side of the PCB.</figcaption>
+    <img src="../image/target/IMG_3316.jpeg"
+         alt="Target Sensor">
+    <figcaption>The Target Sensor PCB.</figcaption>
 </figure>
