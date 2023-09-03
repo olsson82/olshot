@@ -16,9 +16,6 @@ is accepted.
 * [Targets](page/targets.md)
 * [Main Unit](page/mainunit.md)
 
-## Still in development
-The system is still in development and this page will be updated during the progress.
-
 ## Updates
 **2023-09-01: Did a redesign on the Nextion Screen. Files uploaded**
 
