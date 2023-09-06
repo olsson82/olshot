@@ -29,4 +29,4 @@ Ref,Qnty,Value,Cmp name,Footprint,Description
 "U5, ",1,NRF24L01_Breakout,NRF24L01_Breakout,RF_Module:nRF24L01_Breakout,"Ultra low power 2.4GHz RF Transceiver, Carrier PCB"
 "U6, ",1,DS1307ZN+,DS1307ZN+,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,"64 x 8, Serial, I2C Real-time clock, 4.5V to 5.5V VCC, -40°C to +85°C, SOIC-8"
 "Y1, ",1,16MHz,Crystal,Crystal:Crystal_HC18-U_Vertical,Two pin crystal
-"Y2, ",1,Crystal,Crystal,Crystal:Crystal_AT310_D3.0mm_L10.0mm_Horizontal,Two pin crystal
+"Y2, ",1,32.768kHz,Crystal,Crystal:Crystal_AT310_D3.0mm_L10.0mm_Horizontal,Two pin crystal
